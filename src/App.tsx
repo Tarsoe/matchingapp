@@ -1,37 +1,320 @@
-import React from 'react';
-// import AddEmployeeForm from './page/AddEmployeeForm';
-// import EmployeeList from './page/EmployeeList';
-import { Route, Router, Switch } from 'wouter';
-import AddEmployee from './page/AddEmployee';
-import UpdateEmployee from './page/UpdateEmployee';
-import Vacancies from './page/vacancies/Vacancies';
-import AddNewVacancy from './page/vacancies/AddNewVacancy';
-import RecommendedCandidates from './page/vacancies/RecommendedCandidates';
-import EditVacancy from './page/vacancies/EditVacancy';
-import ViewRecommendCan from './page/vacancies/ViewRecommendCan';
-import EmployeeList from './page/EmployeeList';
-// import VacancySearch from './page/vacancies/VacancySearch';
+import React, { useState, useEffect } from 'react';
+// import { BrowserRouter as Route, Routes, Navigate, Router } from 'react-router-dom';
+import Login from './components/Login';
+import HomePage from './components/HomePage';
+import { Navigate, Route, Routes } from 'react-router-dom';
+// import { logout } from './services/AuthService';
+// import { logout } from './api';
 
 const App: React.FC = () => {
+  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+  const [user, setUser] = useState<{ username: string; email: string } | null>(null);
+
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+      console.log(user);
+    }
+  }, []);
+
+  // const handleLogout = async () => {
+  //   await logout();
+  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('user');
+  //   setToken(null);
+  //   setUser(null);
+  // };
+
   return (
-    <Router>
-      <Switch>
-        <Route path='/' component={EmployeeList} />
-        {/* <VacancySearch /> */}
-        <Route path='/add' component={AddEmployee} />
-        <Route path='/update/:id' component={UpdateEmployee} />
-        <Route path='/vacancies' component={Vacancies} />
-        <Route path='/addVacancies' component={AddNewVacancy} />
-        <Route path='/editVacancy/:id' component={EditVacancy} />
-        <Route path="/matching-candidates" component={RecommendedCandidates} />
-        <Route path="/viewRecommendCan" component={ViewRecommendCan} />
-        {/* <Route path="/viewRecommendCan/:id" component={ViewRecommendCan} /> */}
-      </Switch>
-    </Router>
+    // <Router>
+    <Routes>
+      <Route
+        path="/login"
+        element={<Login setToken={setToken} setUser={setUser} />}
+      // element={<Login setToken={setToken} setUser={setUser} />}
+      />
+      <Route
+        path="/home"
+        element={token ? <HomePage token={token} /> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/"
+        element={<Navigate to={token ? "/home" : "/login"} />}
+      />
+    </Routes>
+    // </Router>
   );
 };
 
 export default App;
+
+
+//! End 
+
+// import React from 'react';
+// import { Route, Routes, Navigate } from 'react-router-dom';
+// import Login from './components/Login';
+// import HomePage from './components/HomePage';
+
+// const App: React.FC = () => {
+//   const [token, setToken] = React.useState<string | null>(localStorage.getItem('token'));
+//   const [user, setUser] = React.useState<{ username: string; email: string } | null>(null);
+
+//   return (
+//     <Routes>
+//       <Route path="/login" element={<Login setToken={setToken} setUser={setUser} />} />
+//       <Route path="/home" element={token ? <HomePage token={token} user={user} /> : <Navigate to="/login" />} />
+//       <Route path="*" element={<Navigate to="/login" />} />
+//     </Routes>
+//   );
+// };
+
+// export default App;
+
+
+//! End
+
+// import React from 'react';
+// import { Routes, Route, Navigate } from 'react-router-dom';
+// import Login from './components/Login';
+// import Home from './components/HomePage';
+// import { AuthProvider } from './context/AuthContext';
+// import PrivateRoute from './components/PrivateRoute';
+
+// const App = () => {
+//   return (
+//     <AuthProvider>
+//       <Routes>
+//         <Route path="/login" element={<Login />} />
+//         <Route path="/home" element={
+//           <PrivateRoute>
+//             <Home />
+//           </PrivateRoute>
+//         } />
+//         <Route path="/" element={<Navigate to="/login" />} />
+//       </Routes>
+//     </AuthProvider>
+//   );
+// };
+
+// export default App;
+
+
+// ! End 
+
+
+// import React, { createContext } from 'react';
+// // import { BrowserRouter as Redirect, Routes } from 'react-router-dom';
+// import { BrowserRouter as Routes, Route, Navigate } from 'react-router-dom';
+// // import AddEmployeeForm from './page/AddEmployeeForm';
+// // import EmployeeList from './page/EmployeeList';
+// // import { Route, Router, Switch, } from 'wouter';
+// // import AddEmployee from './page/AddEmployee';
+// // import UpdateEmployee from './page/UpdateEmployee';
+// // import Vacancies from './page/vacancies/Vacancies';
+// // import AddNewVacancy from './page/vacancies/AddNewVacancy';
+// // import RecommendedCandidates from './page/vacancies/RecommendedCandidates';
+// // import EditVacancy from './page/vacancies/EditVacancy';
+// // import ViewRecommendCan from './page/vacancies/ViewRecommendCan';
+// // // import UserRegistrationForm from './page/UserRegistrationForm';
+// // // import LoginForm from './page/LoginForm';
+// // // import HomePage from './page/HomePage';
+// // import EmployeeList from './page/EmployeeList';
+// // // import LoginForm from './page/LoginForm';
+// // // import HomePage from './page/HomePage';
+// // import RegistrationForm from './page/UserRegistrationForm';
+// // import { AuthProvider, useAuth } from './context/AuthContext';
+// import Home from './components/Home';
+// import Login from './components/Login';
+// // import PrivateRoute from './components/PrivateRoute';
+// import { AuthProvider } from './context/AuthContext';
+// import PrivateRoute from './components/PrivateRoute';
+// // import { login } from './API/userApi';
+// // import PrivateRoute from './page/PrivateRoute';
+// // import HomePage from './page/HomePage';
+// // import EmployeeList from './page/EmployeeList';
+// // import VacancySearch from './page/vacancies/VacancySearch';
+
+
+// export const AuthContext = createContext<{ token: string | null; setToken: React.Dispatch<React.SetStateAction<string | null>> }>({ token: null, setToken: () => { } });
+
+// const App: React.FC = () => {
+
+//   return (
+//     // <AuthProvider>
+//       {/* <Router> */}
+//         {/* <Switch> */}
+//         // <Routes>
+//         //   <Route path="/login" element={<Login />} />
+//         //   <Route path="/home" element={
+//         //     <PrivateRoute>
+//         //       <Home />
+//         //     </PrivateRoute>
+//         //   } />
+//         //   <Route path="/" element={<Navigate to="/login" />} />
+//         // </Routes>
+//         {/* <Routes>
+//             <Route path="/login" element={<Login />} />
+//             <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
+//             <Route path="/" element={<Navigate to="/login" />} />
+//           </Routes> */}
+//         {/* <Route path='/' component={EmployeeList} />
+//             <Route path='/homePage' component={HomePage} /> */}
+//         {/* <UserRegistrationForm /> */}
+//         {/* <LoginForm onLogin={handleLogin} /> */}
+//         {/* <Route path="/login" element={<LoginForm />} /> */}
+//         {/* <Route path="/home" component={<HomePage />} /> */}
+//         {/* <Route path="/">
+//               {isLoggedIn ? <Redirect to="/employeeList" /> : <LoginForm onLogin={handleLogin} />}
+//             </Route> */}
+//         {/* <Route path="/home">
+//               <HomePage />
+//             </Route> */}
+//         {/* <Route path="/">
+//               {isLoggedIn ? <Redirect to="/home" /> : <LoginForm onLogin={handleLogin} />}
+//             </Route>
+//             <Route path="/home">
+//               <HomePage />
+//             </Route> */}
+//         {/* <LoginForm /> */}
+//         {/* <VacancySearch /> */}
+//         {/* <Route path="/login" element={<LoginForm />} /> */}
+//         {/* <Route path="/" component={LoginForm} /> */}
+//         {/* <Route path="/home" element={<HomePage />} /> */}
+//         {/* <Route path="/home" component={HomePage} /> */}
+//           //! Good Code
+//         {/* <Route path="/registerUser" component={RegistrationForm} />
+//           <Route path='/employeeList' component={EmployeeList} />
+//           <Route path='/add' component={AddEmployee} />
+//           <Route path='/update/:id' component={UpdateEmployee} />
+//           <Route path='/vacancies' component={Vacancies} />
+//           <Route path='/addVacancies' component={AddNewVacancy} />
+//           <Route path='/editVacancy/:id' component={EditVacancy} />
+//           <Route path="/matching-candidates" component={RecommendedCandidates} />
+//           <Route path="/viewRecommendCan" component={ViewRecommendCan} /> */}
+//           //! Good Code
+//         {/* <Route path="/viewRecommendCan/:id" component={ViewRecommendCan} /> */}
+//         {/* </Switch> */}
+//       {/* </Router> */}
+//     {/* </AuthProvider> */}
+//   );
+// };
+
+// export default App;
+
+//! End
+
+// import React, { createContext, useState } from 'react';
+// // import AddEmployeeForm from './page/AddEmployeeForm';
+// // import EmployeeList from './page/EmployeeList';
+// import { Route, Router, Switch } from 'wouter';
+// import AddEmployee from './page/AddEmployee';
+// import UpdateEmployee from './page/UpdateEmployee';
+// import Vacancies from './page/vacancies/Vacancies';
+// import AddNewVacancy from './page/vacancies/AddNewVacancy';
+// import RecommendedCandidates from './page/vacancies/RecommendedCandidates';
+// import EditVacancy from './page/vacancies/EditVacancy';
+// import ViewRecommendCan from './page/vacancies/ViewRecommendCan';
+// // import UserRegistrationForm from './page/UserRegistrationForm';
+// // import LoginForm from './page/LoginForm';
+// // import HomePage from './page/HomePage';
+// import EmployeeList from './page/EmployeeList';
+// import LoginForm from './page/LoginForm';
+// import HomePage from './page/HomePage';
+// import RegistrationForm from './page/UserRegistrationForm';
+// // import { login } from './API/userApi';
+// // import PrivateRoute from './page/PrivateRoute';
+// // import HomePage from './page/HomePage';
+// // import EmployeeList from './page/EmployeeList';
+// // import VacancySearch from './page/vacancies/VacancySearch';
+
+
+// export const AuthContext = createContext<{ token: string | null; setToken: React.Dispatch<React.SetStateAction<string | null>> }>({ token: null, setToken: () => { } });
+
+// const App: React.FC = () => {
+
+//   // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+//   // const handleLogin = async (username: string, password: string) => {
+//   //   try {
+//   //     await login(username, password);
+//   //     setIsLoggedIn(true);
+//   //   } catch (error) {
+//   //     if (error instanceof Error) {
+//   //       console.error('Login failed:', error.message);
+//   //     } else {
+//   //       console.error('Login failed:', 'An unknown error occurred');
+//   //     }
+//   //   }
+//   // };
+
+//   // const handleLogin = async (username: string, password: string) => {
+//   //   try {
+//   //     const data = await login(username, password);
+//   //     console.log('Login successful:', data);
+//   //     localStorage.setItem('token', data.token);
+//   //     window.location.href = '/home'; // Redirect to homepage
+//   //   } catch (error) {
+//   //     if (error instanceof Error) {
+//   //       console.error('Login failed:', error.message);
+//   //     } else {
+//   //       console.error('Login failed:', 'An unknown error occurred');
+//   //     }
+//   //   }
+//   // };
+
+//   const [token, setToken] = useState<string | null>(null)
+
+//   return (
+//     <AuthContext.Provider value={{ token, setToken }}>
+//       <Router>
+//         <Switch>
+//           {/* <Route path='/' component={EmployeeList} />
+//           <Route path='/homePage' component={HomePage} /> */}
+//           {/* <UserRegistrationForm /> */}
+//           {/* <LoginForm onLogin={handleLogin} /> */}
+//           {/* <Route path="/login" element={<LoginForm />} /> */}
+//           {/* <Route path="/home" component={<HomePage />} /> */}
+//           {/* <Route path="/">
+//             {isLoggedIn ? <Redirect to="/employeeList" /> : <LoginForm onLogin={handleLogin} />}
+//           </Route> */}
+//           {/* <Route path="/home">
+//             <HomePage />
+//           </Route> */}
+//           {/* <Route path="/">
+//             {isLoggedIn ? <Redirect to="/home" /> : <LoginForm onLogin={handleLogin} />}
+//           </Route>
+//           <Route path="/home">
+//             <HomePage />
+//           </Route> */}
+//           {/* <LoginForm /> */}
+//           {/* <VacancySearch /> */}
+
+//           {/* <Route path="/login" element={<LoginForm />} /> */}
+//           <Route path="/" component={LoginForm} />
+//           {/* <Route path="/home" element={<HomePage />} /> */}
+//           <Route path="/home" component={HomePage} />
+//           <Route path="/registerUser" component={RegistrationForm} />
+
+//           <Route path='/employeeList' component={EmployeeList} />
+//           <Route path='/add' component={AddEmployee} />
+//           <Route path='/update/:id' component={UpdateEmployee} />
+//           <Route path='/vacancies' component={Vacancies} />
+//           <Route path='/addVacancies' component={AddNewVacancy} />
+//           <Route path='/editVacancy/:id' component={EditVacancy} />
+//           <Route path="/matching-candidates" component={RecommendedCandidates} />
+//           <Route path="/viewRecommendCan" component={ViewRecommendCan} />
+//           {/* <Route path="/viewRecommendCan/:id" component={ViewRecommendCan} /> */}
+//         </Switch>
+//       </Router>
+//     </AuthContext.Provider>
+//   );
+// };
+
+// export default App;
+
+//! End
 
 // import React, { useState, ChangeEvent, FormEvent } from 'react';
 // // import axios from 'axios';
