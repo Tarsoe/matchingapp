@@ -30,17 +30,26 @@ const App: React.FC = () => {
     // <Router>
     <Routes>
       <Route
-        path="/login"
+        path="/"
         element={<Login setToken={setToken} setUser={setUser} />}
       // element={<Login setToken={setToken} setUser={setUser} />}
       />
+      {/* <Route
+        path="/login"
+        element={<Login setToken={setToken} setUser={setUser} />}
+      // element={<Login setToken={setToken} setUser={setUser} />}
+      /> */}
       <Route
         path="/home"
-        element={token ? <HomePage token={token} /> : <Navigate to="/login" />}
+        element={token ? <HomePage token={token} /> : <Navigate to="/" />}
       />
+      {/* <Route
+        path="/home"
+        element={token ? <HomePage token={token} /> : <Navigate to="/login" />}
+      /> */}
       <Route
         path="/"
-        element={<Navigate to={token ? "/home" : "/login"} />}
+        element={<Navigate to={token ? "/home" : "/"} />}
       />
     </Routes>
     // </Router>

@@ -60,7 +60,8 @@ const HomePage: React.FC<HomePageProps> = ({ token }) => {
             await logout(token);
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            navigate('/login');
+            // navigate('/login');
+            navigate('/');
         } catch (error) {
             console.error('Logout failed', error);
         } finally {
