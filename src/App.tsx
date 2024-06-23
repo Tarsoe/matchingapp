@@ -34,19 +34,10 @@ const App: React.FC = () => {
         element={<Login setToken={setToken} setUser={setUser} />}
       // element={<Login setToken={setToken} setUser={setUser} />}
       />
-      {/* <Route
-        path="/login"
-        element={<Login setToken={setToken} setUser={setUser} />}
-      // element={<Login setToken={setToken} setUser={setUser} />}
-      /> */}
       <Route
         path="/home"
         element={token ? <HomePage token={token} /> : <Navigate to="/" />}
       />
-      {/* <Route
-        path="/home"
-        element={token ? <HomePage token={token} /> : <Navigate to="/login" />}
-      /> */}
       <Route
         path="/"
         element={<Navigate to={token ? "/home" : "/"} />}
@@ -57,6 +48,69 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+//! End
+
+
+// import React, { useState, useEffect } from 'react';
+// // import { BrowserRouter as Route, Routes, Navigate, Router } from 'react-router-dom';
+// import Login from './components/Login';
+// import HomePage from './components/HomePage';
+// import { Navigate, Route, Routes } from 'react-router-dom';
+// // import { logout } from './services/AuthService';
+// // import { logout } from './api';
+
+// const App: React.FC = () => {
+//   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+//   const [user, setUser] = useState<{ username: string; email: string } | null>(null);
+
+//   useEffect(() => {
+//     const userData = localStorage.getItem('user');
+//     if (userData) {
+//       setUser(JSON.parse(userData));
+//       console.log(user);
+//     }
+//   }, []);
+
+//   // const handleLogout = async () => {
+//   //   await logout();
+//   //   localStorage.removeItem('token');
+//   //   localStorage.removeItem('user');
+//   //   setToken(null);
+//   //   setUser(null);
+//   // };
+
+//   return (
+//     // <Router>
+//     <Routes>
+//       <Route
+//         path="/"
+//         element={<Login setToken={setToken} setUser={setUser} />}
+//       // element={<Login setToken={setToken} setUser={setUser} />}
+//       />
+//       {/* <Route
+//         path="/login"
+//         element={<Login setToken={setToken} setUser={setUser} />}
+//       // element={<Login setToken={setToken} setUser={setUser} />}
+//       /> */}
+//       <Route
+//         path="/home"
+//         element={token ? <HomePage token={token} /> : <Navigate to="/" />}
+//       />
+//       {/* <Route
+//         path="/home"
+//         element={token ? <HomePage token={token} /> : <Navigate to="/login" />}
+//       /> */}
+//       <Route
+//         path="/"
+//         element={<Navigate to={token ? "/home" : "/"} />}
+//       />
+//     </Routes>
+//     // </Router>
+//   );
+// };
+
+// export default App;
 
 
 //! End 
