@@ -11,7 +11,7 @@ export interface UserData {
 const URL = 'https://matching-production-b463.up.railway.app';
 
 export const registerUser = async (userData: UserData) => {
-  return await axios.post(`${URL}register`, userData);
+  return await axios.post(`${URL}/register`, userData);
   // return await axios.post('http://localhost:8080/register', userData);
 };
 
