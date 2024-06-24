@@ -3,6 +3,12 @@ import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
 import HomePage from './components/HomePage';
 import { Navigate, Route, Routes } from 'react-router-dom';
+// import { Route, Routes } from 'react-router-dom';
+import RequestPasswordReset from './components/RequestPasswordReset';
+import ResetPassword from './components/ResetPassword';
+import ValidateToken from './components/ValidateToken';
+import RegistrationForm from './components/RegistrationForm';
+// import RegistrationForm from './page/UserRegistrationForm';
 // import { logout } from './services/AuthService';
 // import { logout } from './api';
 
@@ -42,6 +48,15 @@ const App: React.FC = () => {
         path="/"
         element={<Navigate to={token ? "/home" : "/"} />}
       />
+      {/* <Route path="/request-password-reset" component={RequestPasswordReset} /> */}
+      {/* <Route path="/password-reset/request" element={<RequestPasswordReset />} /> */}
+      {/* <Route path="/reset-password/:token" element={<ResetPassword />} /> */}
+      {/* <Route path="/password-reset/reset/:token" element={<ResetPassword />} /> */}
+
+      <Route path="/registrationForm" element={<RegistrationForm />} />
+      <Route path="/request" element={<RequestPasswordReset />} />
+      <Route path="/validate" element={<ValidateToken />} />
+      <Route path="/reset" element={<ResetPassword />} />
     </Routes>
     // </Router>
   );

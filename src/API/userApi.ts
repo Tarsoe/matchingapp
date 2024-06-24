@@ -7,8 +7,12 @@ export interface UserData {
   password: string;
 }
 
+// const URL = 'http://localhost:8080';
+const URL = 'https://matching-production-b463.up.railway.app';
+
 export const registerUser = async (userData: UserData) => {
-  return await axios.post('http://localhost:8080/register', userData);
+  return await axios.post(`${URL}register`, userData);
+  // return await axios.post('http://localhost:8080/register', userData);
 };
 
 // api.ts
