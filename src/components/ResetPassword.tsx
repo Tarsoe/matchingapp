@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { resetPassword } from '../services/api';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 // import { resetPassword } from './api';
 // import { useHistory } from 'react-router-dom';
 
@@ -10,6 +11,8 @@ const ResetPassword: React.FC = () => {
     const [message, setMessage] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const [nextVisible, setNextVisible] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState(false);
+
     // const history = useHistory();
     const navigate = useNavigate();
 
@@ -41,15 +44,19 @@ const ResetPassword: React.FC = () => {
                         required
                     />
                 </div>
-                <div>
+                <div className=' relative'>
                     <label className="block mb-2">New Password:</label>
                     <input
-                        type="password"
+                        // type="password"
+                        type={showPassword ? 'text' : 'password'}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="p-2 border border-gray-300 rounded w-full"
                         required
                     />
+                    <div className=' absolute inset-y-11 right-3' onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? <FaEye /> : <FaEyeSlash />}
+                    </div>
                 </div>
                 <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
                     {loading ? 'Resetting...' : 'Reset Password'}

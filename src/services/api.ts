@@ -16,4 +16,4 @@ export const validateToken = async (token: string) => {
 export const resetPassword = async (token: string, password: string) => {
     const response = await axios.post(`${API_URL}/reset`, null, { params: { token, password } });
     return response.data;
-};
+};  
