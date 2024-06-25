@@ -54,7 +54,7 @@ const ResetPassword: React.FC = () => {
                         className="p-2 border border-gray-300 rounded w-full"
                         required
                     />
-                    <div className=' absolute inset-y-11 right-3' onClick={() => setShowPassword(!showPassword)}>
+                    <div className=' absolute inset-y-11 right-3 cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
                         {showPassword ? <FaEye /> : <FaEyeSlash />}
                     </div>
                 </div>

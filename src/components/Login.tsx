@@ -71,7 +71,7 @@ const Login: React.FC<LoginProps> = ({ setToken, setUser }) => {
                         className="mt-1 p-2 border border-gray-300 rounded w-full"
                     />
                     <div
-                        className=" absolute inset-y-10 right-3"
+                        className=" absolute inset-y-10 right-3 cursor-pointer"
                         // className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                         onClick={() => setShowPassword(!showPassword)}
                     >
